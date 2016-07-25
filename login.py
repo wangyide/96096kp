@@ -21,6 +21,7 @@ class Login :
     self.cookfilename = './cache/cookie.txt'
     self.loginName = ''
 
+    #新建相关目录
     if os.path.exists('./cache') :
       if os.path.isdir('./cache') :
         print "Directory cache already exists, Program continue ..."
@@ -54,6 +55,7 @@ class Login :
 
 
   def login(self) :
+  #调用三种方式进行登录，依次为 1:cookie   2:自动识别验证码   3:手动输入验证码
     if self.loginByCookie() :
       pass
     elif self.loginByMachine() :
@@ -65,9 +67,9 @@ class Login :
       sys.exit(0)
 
 
-#Login by old cookie
-  def loginByCookie(self) :
 
+  def loginByCookie(self) :
+  #通过旧cookie尝试登录
     vcodeUrl='http://96096kp.com/ValidateCode.aspx'
     result = self.opener.open(vcodeUrl)
 
@@ -79,7 +81,7 @@ class Login :
       return True
 
   def loginByMachine(self) :
-    
+  #通过自动识别验证码尝试登录
     vcodeUrl='http://96096kp.com/ValidateCode.aspx'
     configfile = ConfigParser.ConfigParser()
     configfile.readfp(open("./cache/web.ini", "r"))
@@ -90,6 +92,10 @@ class Login :
       vcodef.close()
       image = Image.open("./cache/96096kp_vcode.gif")
       vcode = verifycode.Vcode().orc(os.path.join('./cache','96096kp_vcode.gif'))
+      if vcode is None :
+        time.sleep(2)
+        print vcode,'第 %s 次登录失败,2s 后程序继续...' % (i+1)
+        continue
       postdata = urllib.urlencode({
             'LoginID':configfile.get("account", "username"),
             'LoginPwd':configfile.get("account", "password"),
@@ -110,7 +116,7 @@ class Login :
 
 
   def loginByHand(self) :
-    return
+  #手动输入验证码登录
     vcodeUrl='http://96096kp.com/ValidateCode.aspx'
     configfile = ConfigParser.ConfigParser()
     configfile.readfp(open("./cache/web.ini", "r"))
@@ -135,7 +141,7 @@ class Login :
         })
     
     gradeUrl = 'http://96096kp.com/UserData/UserCmd.aspx'
-    #请求访问成绩查询网址
+    #登录地址
     result = self.opener.open(gradeUrl,postdata)
     resultHtml = result.read()
     
@@ -149,8 +155,8 @@ class Login :
 
 
 
-#用于判断是否登录成功
   def getName(self) :
+  #获取登录账号用户名
     cookie = self.cookie
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
 
@@ -165,6 +171,7 @@ class Login :
     return None
 
   def checkLogin(self) :
+  #用于判断是否登录成功
     if self.getName() :
       return True
     else :
