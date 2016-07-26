@@ -75,19 +75,19 @@ ticketrow_head = []
 ticketrow_body = []
 ticketrow_count = 0
 for str3 in str2 : 
+  ticketrow_body = []
   for k, v in str3.iteritems() :
     if ticketrow_count == 0 :
       ticketrow_head.append(k)
     ticketrow_body.append(v)
-    ticketrow_count+=1
-  print ticketrow_head
-  print ticketrow_body
-
+  if ticketrow_count == 0 :
+    ticketrow.field_names = ticketrow_head
+  ticketrow.add_row(ticketrow_body)
+  ticketrow_count+=1
+print ticketrow
 
 print '-----'
-for i in str1['data'] :
 #    print 'date: %s    time:%s   chufa:%s    daoda:%s     banci:%s    tujing:%s    chexing:%s    piaojia:%s  yupiao:%s '   %         (i['SchDate'],i['SchTime'],i['SchStationName'],i['SchDstNodeName'],i['SchLocalCode'],i['SchNodeNameList'],i['SchPrice'],i['SchTicketCount'],i['SchPrice'])
-    print 'SchChild: %s    SchDiscPrice:%s   SchCompCode:%s    SchBusBrandColor:%s     SchCompName:%s    SchInterval:%s    SchGlobalCode:%s    Notes:%s  SchBerth:%s   SchStationCode:%s   SchType:%s   SchDist:%s   SchWaitingRoom:%s   SchDate:%s   SchTime:%s   SchFirstTime:%s   SchBusBrand:%s      SchOperType:%s   SchNodeNameList:%s   SchBusLevel:%s   SchPrice:%s   SchNodeName:%s   SchDstNodeName:%s   SchStationName:%s   SchLineName:%s   SchSeatCount:%s   SchDstCity:%s     SchLastTime:%s     SchFuel:%s     SchCheckGate:%s     SchPrintSeat:%s     SchDstNode:%s     SchTicketCount:%s     SchMode:%s     SchNodeCode:%s     SchStat:%s     SchLocalCode:%s     SchBusType:%s     SchStdPrice:%s  ' %    (i['SchChild'],i['SchDiscPrice'],i['SchCompCode'],i['SchBusBrandColor'],i['SchCompName'],i['SchInterval'],i['SchGlobalCode'],i['Notes'],i['SchBerth'],i['SchStationCode'],i['SchType'],i['SchDist'],i['SchWaitingRoom'],i['SchDate'],i['SchTime'],i['SchFirstTime'],i['SchBusBrand'],i['SchOperType'],i['SchNodeNameList'],i['SchBusLevel'],i['SchPrice'],i['SchNodeName'],i['SchDstNodeName'],i['SchStationName'],i['SchLineName'],i['SchSeatCount'],i['SchDstCity'],i['SchLastTime'],i['SchFuel'],i['SchCheckGate'],i['SchPrintSeat'],i['SchDstNode'],i['SchTicketCount'],i['SchMode'],i['SchNodeCode'],i['SchStat'],i['SchLocalCode'],i['SchBusType'],i['SchStdPrice'])
 # 
 # print str0
 print '-----'
