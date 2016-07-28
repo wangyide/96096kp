@@ -49,7 +49,7 @@ postdata = urllib.urlencode({
     'OpStation' : '-1',
     'OpAddress' : '-1',
     'SchDate' : tomorrow,
-    'DstNode' : 'dt',
+    'DstNode' : '永川',
     'SeatType' : '',
     'SchTime' : '00:30',
     'OperMode' : '',
@@ -77,6 +77,8 @@ ticketrow_count = 0
 for str3 in str2 : 
   ticketrow_body = []
   for k, v in str3.iteritems() :
+    if k in ['SchMode','SchFuel','SchPrintSeat','SchBerth','SchBusType','SchLocalCode','SchDstNode','SchDiscPrice','SchStdPrice','SchStat','SchDist','SchNodeName','SchSeatCount','SchChild','SchCompCode','SchStationCode','SchWaitingRoom','SchBusBrandColor','SchCompName', 'SchInterval','SchGlobalCode','Notes','SchFirstTime','SchBusLevel', 'SchType','SchOperType','SchBusBrand','SchDstCity','SchLastTime',] :
+      continue
     if ticketrow_count == 0 :
       ticketrow_head.append(k)
     ticketrow_body.append(v)
@@ -86,8 +88,3 @@ for str3 in str2 :
   ticketrow_count+=1
 print ticketrow
 
-print '-----'
-#    print 'date: %s    time:%s   chufa:%s    daoda:%s     banci:%s    tujing:%s    chexing:%s    piaojia:%s  yupiao:%s '   %         (i['SchDate'],i['SchTime'],i['SchStationName'],i['SchDstNodeName'],i['SchLocalCode'],i['SchNodeNameList'],i['SchPrice'],i['SchTicketCount'],i['SchPrice'])
-# 
-# print str0
-print '-----'
